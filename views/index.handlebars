@@ -1,0 +1,84 @@
+<div class="jumbotron">
+<h1>
+  Burger Party
+  </h1>
+  </div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    {{#each burgs}} {{#unless eaten}}
+    <p>
+      {{this.id}}. {{this.burger}}
+      <button data-burgid="{{this.id}}" class="eat btn btn-primary">Eat the burger</button>
+    </p>
+    {{/unless}} {{/each}}
+  </div>
+
+
+  <div class="col-md-6">
+    <h3>Eaten Burgers</h3>
+    {{#each burgs}} {{#if this.eaten}}
+    <p>
+      {{this.id}}. {{this.burger}}
+
+    </p>
+    {{/if}} {{/each}}
+  </div>
+</div>
+
+
+
+
+<form id="addburger"> 
+  <div class="form-group">
+    <label for="burgerInput">Add a Burger</label>
+    <input type="text" class="form-control" id="burgerInput">
+  </div>
+
+  <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
+
+
+<script type="text/javascript">
+  $(".eat").on("click", function (event) {
+
+    event.preventDefault();
+    var id = $(this).data("burgid");
+
+    // Send the PUT request.
+    $.ajax("/burgers/" + id, {
+      type: "PUT",
+
+
+    }).then(
+      function () {
+        console.log("updated id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+
+  });
+
+  $("#addburger").on("submit", function (event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var newBurg = {
+      burgerTOWN: $("#addburger [id=burgerInput]").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/burgers", {
+      type: "POST",
+      data: newBurg
+    }).then(
+      function () {
+        console.log("added new movie");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+</script>
