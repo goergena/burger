@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
   });
 
   if (proccess.env.JAWSDB_URL) {
-    var connection = mysql.createConnection(process.env.JAWSDB_URL)
+    var connection = mysql.createConnection(process.env.JAWSDB_URL);
   } else {
     var connection = mysql.createConnection({
       host: "localhost",
@@ -26,5 +26,7 @@ var connection = mysql.createConnection({
   
     console.log("connected as id " + connection.threadId);
   });
+
+  //export the connection
 
   module.exports = connection;
