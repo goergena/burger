@@ -23,7 +23,7 @@ var orm = {
     },
 
     updateOne: function (table, strColVal, condition, cb) {
-        var queryString = "UPDATE " + table + " SET " + strColVal +  " WHERE " + condition;
+        var queryString = "UPDATE " + table + " SET " + strColVal + " WHERE " + condition;
         connection.query(queryString, function (err, result) {
             if (err) {
                 throw err;
